@@ -10,11 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormState, login } from "@/lib/actions/login-actions";
 import { loginSchema, LoginSchemaType } from "@/lib/zod/login-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useActionState } from "react";
 import { useForm } from "react-hook-form";
+import { FormState, login } from "./login-actions";
 
 const LoginPage = () => {
   const [state, action, pending] = useActionState(login, {} as FormState);

@@ -1,10 +1,10 @@
 "use server";
 
+import { auth } from "@/lib/auth";
+import { loginSchema, LoginSchemaType } from "@/lib/zod/login-schema";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import z from "zod";
-import { auth } from "../auth";
-import { loginSchema, LoginSchemaType } from "../zod/login-schema";
 
 export type FormState = {
   errors?: {

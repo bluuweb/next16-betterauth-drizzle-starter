@@ -1,23 +1,9 @@
 "use server";
 
+import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import * as z from "zod";
-import { auth } from "../auth";
-
-const SignupFormSchema = z.object({
-  name: z.string().trim().min(2, {
-    message: "Name must be at least 2 characters long.",
-  }),
-  email: z
-    .email({
-      message: "Please enter a valid email.",
-    })
-    .toLowerCase(),
-  password: z.string().trim().min(6, {
-    message: "Be at least 6 characters long",
-  }),
-});
+import z from "zod";
 
 export type FormState = {
   errors?: {
@@ -29,12 +15,25 @@ export type FormState = {
   success?: boolean;
 };
 
-export const signup = async (prevState: FormState, formData: FormData) => {
-  const validatedFields = SignupFormSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+const SignupFormSchema = z.object({
+  name: z.string().trim().min(2, {
+    message: "Name must be at least 2 characters long.",
+  }),
+  email: z
+    .string()
+    .email({
+      message: "Please enter a valid email.",
+    })
+    .toLowerCase(),
+  password: z.string().trim().min(6, {
+    message: "Be at least 6 characters long",
+  }),
+});
+
+export type SignupSchemaType = z.infer<typeof SignupFormSchema>;
+
+export const signup = async (prevState: FormState, data: SignupSchemaType) => {
+  const validatedFields = SignupFormSchema.safeParse(data);
 
   if (!validatedFields.success) {
     const flattened = z.flattenError(validatedFields.error);
@@ -48,6 +47,7 @@ export const signup = async (prevState: FormState, formData: FormData) => {
   try {
     await auth.api.signUpEmail({
       body: { email, password, name },
+      headers: await headers(),
     });
 
     return {
