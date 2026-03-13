@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Next.js 16 Starter Kit con Better Auth y Drizzle ORM
 
-## Getting Started
+Este proyecto es un Starter Kit diseñado para construir aplicaciones modernas y de alto rendimiento utilizando **Next.js 16** (App Router), **Better Auth** para autenticación, y **Drizzle ORM** para la gestión de bases de datos con **NeonDB** (PostgreSQL Serverless). Escrito completamente en **TypeScript**, este kit proporciona una base sólida para tus proyectos.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Requisitos Previos
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Antes de comenzar, asegúrate de tener lo siguiente instalado:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Node.js** (versión recomendada: `>=18.x`)
+- Una cuenta en [Neon Console](https://neon.tech/)
+- **npm** como gestor de paquetes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Instalación Paso a Paso
 
-To learn more about Next.js, take a look at the following resources:
+Sigue estos pasos para configurar el proyecto en tu máquina local:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clona el repositorio:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd <NOMBRE_DEL_DIRECTORIO>
+   ```
 
-## Deploy on Vercel
+2. **Instala las dependencias:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Configura las variables de entorno:**
+
+   Crea un archivo `.env` basado en `.env.example` y configura las siguientes variables:
+
+   ```env
+   DATABASE_URL=postgresql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
+   BETTER_AUTH_SECRET=<tu_secreto>
+   BETTER_AUTH_URL=<url_de_tu_proveedor_de_auth>
+   ```
+
+   - **DATABASE_URL**: Proporcionado por NeonDB.
+   - **BETTER_AUTH_SECRET** y **BETTER_AUTH_URL**: Configuración necesaria para Better Auth.
+
+---
+
+## 🗄️ Base de Datos y Migraciones
+
+Este proyecto utiliza **Drizzle ORM** para la gestión de la base de datos. Sigue estos pasos para manejar las migraciones:
+
+1. **Generar migraciones:**
+
+   ```bash
+   npm run drizzle-kit:generate
+   ```
+
+2. **Aplicar migraciones:**
+
+   ```bash
+   npm run drizzle-kit:push
+   ```
+
+3. **Abrir Drizzle Studio:**
+
+   ```bash
+   npm run drizzle:studio
+   ```
+
+---
+
+## 📜 Scripts Disponibles
+
+En el archivo `package.json` encontrarás los siguientes scripts útiles:
+
+- **Desarrollo:**
+
+  ```bash
+  npm run dev
+  ```
+
+- **Construcción:**
+
+  ```bash
+  npm run build
+  ```
+
+- **Linting:**
+
+  ```bash
+  npm run lint
+  ```
+
+---
+
+## 🔐 Notas sobre Better Auth
+
+**Better Auth** está integrado con **Drizzle ORM** para manejar sesiones y usuarios de manera eficiente. Asegúrate de configurar correctamente las variables de entorno relacionadas con la autenticación para un funcionamiento óptimo.
+
+---
+
+¡Listo! Ahora puedes comenzar a construir tu aplicación con este Starter Kit. 🎉
