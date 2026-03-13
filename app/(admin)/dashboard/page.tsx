@@ -2,7 +2,7 @@
 
 import SignOut from "@/components/sign-out";
 import UserInfoProvider from "@/components/user-info-provider";
-import { useSession } from "@/providers/session-provider";
+import { useSession } from "@/lib/providers/session-provider";
 
 const DashboardPage = () => {
   const session = useSession();
