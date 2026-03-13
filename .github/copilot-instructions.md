@@ -15,6 +15,7 @@ Estas instrucciones definen el contexto y las mejores prácticas para trabajar e
 ## MCP Configuration
 
 Este proyecto utiliza **Next.js MCP Server** (`.mcp.json`) para que tengas acceso en tiempo real a:
+
 - Errores de build, runtime y type errors
 - Información de estado de la aplicación
 - Metadata de páginas y componentes
@@ -24,24 +25,28 @@ Este proyecto utiliza **Next.js MCP Server** (`.mcp.json`) para que tengas acces
 ## Recursos Oficiales (SIEMPRE consultar primero)
 
 ### Next.js 16
+
 - Documentación oficial: https://nextjs.org/docs
 - App Router: https://nextjs.org/docs/app
 - Server Actions: https://nextjs.org/docs/app/guides/forms
 - MCP Server: https://nextjs.org/docs/app/guides/mcp
 
 ### Drizzle ORM
+
 - Documentación oficial: https://orm.drizzle.team/docs/overview
 - PostgreSQL: https://orm.drizzle.team/docs/get-started-postgresql
 - Migrations: https://orm.drizzle.team/docs/drizzle-kit/overview
 - Queries: https://orm.drizzle.team/docs/select
 
 ### Better Auth
+
 - Documentación oficial: https://www.better-auth.com
 - Setup: https://www.better-auth.com/docs/installation
 - API Reference: https://www.better-auth.com/docs/api-reference/auth
 - Drizzle Adapter: https://www.better-auth.com/docs/adapters/drizzle
 
 ### ShadCN + React Hook Form
+
 - ShadCN Docs: https://ui.shadcn.com
 - React Hook Form: https://react-hook-form.com
 - Form Component: https://ui.shadcn.com/docs/components/form
@@ -51,6 +56,7 @@ Este proyecto utiliza **Next.js MCP Server** (`.mcp.json`) para que tengas acces
 ### 1. Autenticación y Sessions
 
 **En Client Components:**
+
 ```typescript
 "use client";
 
@@ -58,12 +64,13 @@ import { useSession } from "@/lib/auth-client";
 
 const MyComponent = () => {
   const { user, session } = useSession();
-  
+
   // Usar user, session aquí
 };
 ```
 
 **En Server Components:**
+
 ```typescript
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -72,7 +79,7 @@ const MyPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  
+
   // Usar session aquí
 };
 ```
@@ -80,11 +87,13 @@ const MyPage = async () => {
 ### 2. Server Actions (Formularios)
 
 **Estructura recomendada:**
-- Archivo: `app/(ruta)/[file-actions].ts` con ``"use server"``
+
+- Archivo: `app/(ruta)/[file-actions].ts` con `"use server"`
 - Validación: Zod schemas en `lib/zod/[schema].ts`
 - Tipos: Exportar `FormState` y `SchemaType` desde actions
 
 **Ejemplo:**
+
 ```typescript
 // app/(auth)/login/login-actions.ts
 "use server";
@@ -104,7 +113,7 @@ export async function login(_: FormState, data: any) {
   if (!validatedFields.success) {
     return { errors: z.flattenError(validatedFields.error).fieldErrors };
   }
-  
+
   try {
     await auth.api.signInEmail({
       body: validatedFields.data,
@@ -119,6 +128,7 @@ export async function login(_: FormState, data: any) {
 ### 3. Formularios con React Hook Form + ShadCN
 
 **En Page Component (`"use client"`):**
+
 ```typescript
 "use client";
 
@@ -171,26 +181,7 @@ const LoginPage = () => {
 
 ### 5. Drizzle ORM Usage
 
-**Queries:**
-```typescript
-import { db } from "@/db";
-import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
-
-const user = await db.query.users.findFirst({
-  where: eq(users.id, userId),
-});
-```
-
-**Mutations:**
-```typescript
-await db.insert(users).values({
-  email: "user@example.com",
-  name: "John",
-});
-
-await db.update(users).set({ name: "Jane" }).where(eq(users.id, id));
-```
+**Queries (Con Builder Pattern - Recomendado)**
 
 ## Reglas Críticas
 
@@ -206,20 +197,24 @@ await db.update(users).set({ name: "Jane" }).where(eq(users.id, id));
 ## Consultas Frecuentes
 
 **¿Cómo obtengo la sesión del usuario?**
+
 - Client: `const { user } = useSession()` (from `@/lib/auth-client`)
 - Server: `await auth.api.getSession({ headers: await headers() })`
 
 **¿Cómo valido datos?**
+
 - Crear schema en `lib/zod/[name]-schema.ts`
 - Usar `schema.safeParse()` en server actions
 - Retornar errores en `FormState`
 
 **¿Cómo manejo migraciones?**
+
 - `npm run drizzle-kit:generate` → Crear migración
 - `npm run drizzle-kit:push` → Aplicar a BD
 - `npm run drizzle:studio` → Ver datos
 
 **¿Dónde pongo componentes?**
+
 - `/components` → Componentes reutilizables
 - `/app` → Layouts y pages solamente
 - `/providers` → Context providers
