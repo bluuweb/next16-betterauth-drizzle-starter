@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
+import SessionProvider from "@/lib/providers/session-provider";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import SessionProvider from "../providers/session-provider";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth.api.getSession({

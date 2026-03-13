@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "../providers/session-provider";
+import { useSession } from "@/providers/session-provider";
 
 const UserInfoProvider = () => {
   const { user } = useSession();

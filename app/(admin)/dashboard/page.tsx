@@ -1,27 +1,19 @@
-import SignOut from "@/app/components/sign-out";
-import UserInfoClient from "@/app/components/user-info-client";
-import UserInfoProvider from "@/app/components/user-info-provider";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-const page = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+import SignOut from "@/components/sign-out";
+import UserInfoProvider from "@/components/user-info-provider";
+import { useSession } from "@/providers/session-provider";
 
-  if (!session) {
-    redirect("/login");
-  }
+const DashboardPage = () => {
+  const session = useSession();
 
   return (
     <div>
       <h1>Dashboard</h1>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
       <SignOut />
       <UserInfoProvider />
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <UserInfoClient />
     </div>
   );
 };
-export default page;
+export default DashboardPage;
