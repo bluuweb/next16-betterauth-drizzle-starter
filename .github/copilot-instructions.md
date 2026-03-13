@@ -72,16 +72,13 @@ const MyComponent = () => {
 **En Server Components:**
 
 ```typescript
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getSession, getUser } from "@/lib/auth/auth-utils";
 
-const MyPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+// Obtener sesión completa
+const session = await getSession();
 
-  // Usar session aquí
-};
+// Obtener solo el usuario
+const user = await getUser();
 ```
 
 ### 2. Server Actions (Formularios)
@@ -199,7 +196,7 @@ const LoginPage = () => {
 **¿Cómo obtengo la sesión del usuario?**
 
 - Client: `const { user } = useSession()` (from `@/lib/auth-client`)
-- Server: `await auth.api.getSession({ headers: await headers() })`
+- Server: `const session = await getSession()` o `const user = await getUser()` (from `@/lib/auth/auth-utils`)
 
 **¿Cómo valido datos?**
 
