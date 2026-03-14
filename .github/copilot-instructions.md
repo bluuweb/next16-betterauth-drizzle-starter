@@ -31,7 +31,9 @@
 - DB: **NeonDB (PostgreSQL Serverless)**
 - Language: **TypeScript**
 - UI: **ShadCN UI**
-- Forms: **React Hook Form + Zod**
+- Forms: **React Hook Form + Zod versión 4**
+- MCP: **Next.js MCP Server** (`.mcp.json`)
+- Zod: **v4** (importar desde `zod` directamente)
 
 ---
 

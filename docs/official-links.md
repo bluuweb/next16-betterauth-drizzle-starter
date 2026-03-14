@@ -11,18 +11,19 @@
 
 - Overview: https://orm.drizzle.team/docs/overview
 - PostgreSQL: https://orm.drizzle.team/docs/get-started-postgresql
-- Migrations (drizzle-kit): https://orm.drizzle.team/docs/drizzle-kit/overview
+- Migrations (drizzle-kit): https://orm.drizzle.team/docs/migrations
 - Select: https://orm.drizzle.team/docs/select
 
 ## Better Auth
 
-- Home: https://www.better-auth.com
-- Install: https://www.better-auth.com/docs/installation
-- API: https://www.better-auth.com/docs/api-reference/auth
-- Drizzle adapter: https://www.better-auth.com/docs/adapters/drizzle
+- LLMs: https://better-auth.com/llms.txt
 
 ## ShadCN + RHF
 
 - ShadCN: https://ui.shadcn.com
 - RHF: https://react-hook-form.com
-- ShadCN Form: https://ui.shadcn.com/docs/components/form
+- ShadCN Form: https://ui.shadcn.com/docs/forms/react-hook-form
+
+## Zod
+
+- https://zod.dev/packages/zod
