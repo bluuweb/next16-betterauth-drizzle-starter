@@ -1,4 +1,3 @@
-import { relations } from "drizzle-orm";
 import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 /**
@@ -185,52 +184,8 @@ export const project = pgTable(
   ],
 );
 
-// ============================================
-// RELACIONES
-// ============================================
+export type Project = typeof project.$inferSelect;
+export type NewProject = typeof project.$inferInsert;
 
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-  members: many(members), // Un usuario puede ser miembro de múltiples tenants
-}));
-
-export const sessionRelations = relations(session, ({ one }) => ({
-  user: one(user, {
-    fields: [session.userId],
-    references: [user.id],
-  }),
-}));
-
-export const accountRelations = relations(account, ({ one }) => ({
-  user: one(user, {
-    fields: [account.userId],
-    references: [user.id],
-  }),
-}));
-
-export const tenantRelations = relations(tenant, ({ many }) => ({
-  members: many(members),
-  projects: many(project),
-  // Agrega aquí las relaciones a otras tablas de negocio
-  // invoices: many(invoice),
-  // tasks: many(task),
-}));
-
-export const membersRelations = relations(members, ({ one }) => ({
-  tenant: one(tenant, {
-    fields: [members.tenantId],
-    references: [tenant.id],
-  }),
-  user: one(user, {
-    fields: [members.userId],
-    references: [user.id],
-  }),
-}));
-
-export const projectRelations = relations(project, ({ one }) => ({
-  tenant: one(tenant, {
-    fields: [project.tenantId],
-    references: [tenant.id],
-  }),
-}));
+export type User = typeof user.$inferSelect;
+export type NewUser = typeof user.$inferInsert;
