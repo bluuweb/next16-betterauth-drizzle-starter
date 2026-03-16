@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { loginSchema, LoginSchemaType } from "@/lib/zod/login-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { startTransition, useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { FormState, login } from "./login-actions";
@@ -115,6 +116,10 @@ const LoginPage = () => {
                 {state.message}
               </p>
             )}
+
+            <p className="text-center">
+              Don&apos;t have an account? <Link href="/register">Sign up</Link>
+            </p>
           </form>
         </Form>
       </div>

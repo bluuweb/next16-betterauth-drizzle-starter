@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { startTransition, useActionState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -157,6 +158,10 @@ const RegisterPage = () => {
                 {state.message}
               </p>
             )}
+
+            <p className="text-center">
+              Already have an account? <Link href="/login">Sign in</Link>
+            </p>
           </form>
         </Form>
       </div>
